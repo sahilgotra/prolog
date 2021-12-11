@@ -1,0 +1,39 @@
+{% extends 'myapp/base.html' %}
+{% block title %}Login{% endblock title %}
+
+
+
+{% block content %}
+<div class="container m-4">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 shadow p-3 mb-5 bg-body rounded">
+      <form action="" method="post">
+        {% csrf_token %}
+          {% if form.non_field_errors %}
+          {% for error in form.non_field_errors %}
+            {{error}}
+          {% endfor %}
+          {% endif %}
+            {% for fm in form %}
+            <p>{{fm.label}}{{fm}}{{fm.errors|striptags}}</p>
+            {% endfor %}
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        <button type="submit" class="btn btn-primary">Login</button><br><br>
+        <a href="{% url 'signup' %}">Click Here <span>If not Registered?</span></a>
+       </form>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+  
+</div>
+
+{% endblock content %}
